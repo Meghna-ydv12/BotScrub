@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BotScrub - Humanize Your Code</title>
+  <link rel="stylesheet" href="bot.css" />
+</head>
+<body class="default">
+  <!-- Splash Screen -->
+  <div id="openingSplash">
+    <div class="splash-bg"></div>
+    <img src="logo.png" alt="Logo" class="splash-logo" />
+  </div>
+  <!-- Theme Change Popup -->
+  <div id="themePopup" style="display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,0.08); align-items:center; justify-content:center;"></div>
+  <!-- Animated Background Visuals -->
+  <div class="bg-visuals" id="bgVisuals"></div>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-wrapper" id="logoWrapper">
+      <img class="site-logo" src="logo.png" alt="BotScrub Logo" />
+      <span class="logo-text">BotScrub</span>
+    </div>
+    <nav class="nav">
+      <select id="themeSelector">
+        <option value="default">Default</option>
+        <option value="squid">Squid Game</option>
+      </select>
+    </nav>
+  </header>
+  <main class="main">
+    <section class="input-section glass-card">
+      <h2>Paste Your Code</h2>
+      <textarea id="input" rows="15" placeholder="Paste your AI-generated code here..."></textarea>
+      <button id="scrubBtn" onclick="humanizeCode()">✨ SCRUB</button>
+    </section>
+    <section class="output-section glass-card">
+      <h2>Humanized Code</h2>
+      <pre id="output">/* Your humanized code will appear here */</pre>
+      <button class="button" id="copyBtn" onclick="copyOutput()">📋 Copy</button>
+    </section>
+  </main>
+  <footer class="footer">
+    <p>&copy; 2025 BotScrub. All rights reserved.</p>
+  </footer>
+  <script src="bot.js"></script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+:root {
+  --logo-bg: #fff;
+  --bg-main: #eaf0fa;
+  --bg-card: rgba(255,255,255,0.24);
+  --glass-blur: 18px;
+  --glass-border: rgba(70,102,255,0.18);
+  --text-main: #222;
+  --text-muted: #4666FF;
+  --accent: #4666FF;
+  --button-bg: linear-gradient(90deg, #4666FF 0%, #6BCBFF 100%);
+  --button-bg-hover: linear-gradient(90deg, #6BCBFF 0%, #4666FF 100%);
+  --shadow: 0 2px 16px #4666ff18;
+  --radius: 18px;
+}
+
+body.squid {
+  --logo-bg: #249f9c;
+  --bg-main: #249f9c;
+  --bg-card: rgba(0,0,0,0.22);
+  --glass-blur: 20px;
+  --glass-border: #18171c55;
+  --text-main: #fff;
+  --text-muted: #ed1b76;
+  --accent: #ed1b76;
+  --button-bg: linear-gradient(90deg, #ed1b76 0%, #18171c 100%);
+  --button-bg-hover: linear-gradient(90deg, #18171c 0%, #ed1b76 100%);
+  --shadow: 0 2px 16px #18171c33;
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Fira Sans', sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background 0.6s, color 0.6s;
+}
+
+/* Splash Screen */
+#openingSplash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  pointer-events: all;
+  transition: opacity 0.5s;
+}
+.splash-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(30,32,40,0.40);
+  backdrop-filter: blur(18px);
+  z-index: 1;
+}
+.splash-logo {
+  position: relative;
+  z-index: 2;
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px #0003;
+  background: var(--logo-bg, #fff);
+  animation: splashLogoPop 1.2s cubic-bezier(.5,1.7,.5,1);
+}
+@keyframes splashLogoPop {
+  0% { opacity: 0; transform: scale(0.6);}
+  50% { opacity: 1; transform: scale(1.1);}
+  80% { opacity: 1; transform: scale(0.97);}
+  100% { opacity: 1; transform: scale(1);}
+}
+#openingSplash.hide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+/* Logo in header */
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: var(--logo-bg);
+  border-radius: 16px;
+  padding: 4px 12px;
+  transition: background 0.5s;
+}
+.site-logo {
+  width: 56px;
+  height: 56px;
+  display: block;
+  background: transparent;
+  border-radius: 12px;
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 1px;
+  transition: color 0.4s;
+}
+body.squid .logo-text {
+  color: #ed1b76;
+}
+
+/* Header and navigation */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2.5rem;
+  background: linear-gradient(120deg, #7aadfaCC 0%, #371f70CC 100%);
+  border-bottom: 1.5px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  box-shadow: 0 2px 8px var(--glass-border);
+  backdrop-filter: blur(8px);
+  animation: fadeInDown 0.8s;
+  transition: background 0.5s;
+  border-radius: 14px;
+  margin: 14px auto 0 auto;
+  max-width: 1200px;
+  width: calc(100% - 48px);
+  min-height: 90px;
+}
+body.squid .header {
+  background: linear-gradient(120deg, #18171c 0%, #249f9c 60%, #ed1b76 100%);
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+.nav select {
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: #fff;
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border 0.3s;
+}
+body.squid .nav select {
+  background: #18171c;
+  color: #ed1b76;
+  border: 1px solid #ed1b76;
+}
+.nav select:focus { border: 2px solid var(--accent); }
+
+/* Main layout and cards */
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.2rem;
+  padding: 2.5rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1s;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.glass-card {
+  flex: 1 1 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 280px;
+  padding: 1rem 1.24rem;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 2px solid var(--glass-border);
+  position: relative;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  transition: box-shadow 0.3s, border 0.3s, background 0.6s;
+  box-shadow: 6px 10px var(--glass-border) ;
+  margin-top: -12px;
+}
+.glass-card:hover {
+  box-shadow: 0 6px 24px var(--glass-border);
+  border-color: var(--accent);
+}
+h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+textarea, pre {
+  width: 100%;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1.2px solid var(--glass-border);
+  background: rgba(255,255,255,0.65);
+  color: var(--text-main);
+  min-height: 180px;
+  resize: vertical;
+  white-space: pre;
+  word-wrap: break-word;
+  font-size: 1rem;
+  transition: border 0.3s, background 0.5s, color 0.5s;
+  box-shadow: 0 2px 8px var(--glass-border);
+}
+body.squid textarea, body.squid pre {
+  background: rgba(24,23,28,0.65);
+  color: #fff;
+}
+textarea:focus, pre:focus {
+  outline: none;
+  border: 1.5px solid var(--accent);
+}
+
+button, .button {
+  padding: 0.7rem 1.5rem;
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.12s, box-shadow 0.3s;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 2px 12px var(--glass-border);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+button:hover, .button:hover {
+  background: var(--button-bg-hover);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 24px var(--glass-border);
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255,255,255,0.97);
+  font-size: 0.95rem;
+  margin-top: 2rem;
+  z-index: 2;
+  border-top: 1.5px solid var(--glass-border);
+  box-shadow: 0 -2px 12px var(--glass-border);
+  backdrop-filter: blur(4px);
+  color: var(--text-muted);
+  transition: background 0.5s, color 0.5s;
+}
+body.squid .footer {
+  background: #18171c;
+  color: #ed1b76;
+}
+
+/* Background visuals for both themes */
+.bg-visuals {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: visible;
+}
+/* Default theme animated chat bubbles and extra graphics */
+body:not(.squid) .bg-visuals::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #eaf0fa 0%, #bde0fe 50%, #a2c1fa 100%);
+  background-size: 200% 200%;
+  animation: waveGradient 12s ease-in-out infinite;
+  opacity: 0.7;
+  z-index: 1;
+}
+@keyframes waveGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-visuals .bubble,
+.bg-visuals .chaticon,
+.bg-visuals .speech {
+  position: absolute;
+  z-index: 2;
+  opacity: 0.5;
+  animation: floatBubble 16s linear infinite;
+}
+.bg-visuals .bubble1 { left: 8vw; top: 20vh; width: 60px; height: 60px; animation-delay: 0s; }
+.bg-visuals .bubble2 { left: 70vw; top: 60vh; width: 80px; height: 80px; animation-delay: 3s; }
+.bg-visuals .bubble3 { left: 50vw; top: 10vh; width: 40px; height: 40px; animation-delay: 6s; }
+.bg-visuals .chaticon1 { left: 2vw; top: 80vh; width: 52px; height: 52px; animation-delay: 5s;}
+.bg-visuals .chaticon2 { left: 90vw; top: 12vh; width: 44px; height: 44px; animation-delay: 7s;}
+.bg-visuals .speech1 { left: 90vw; top: 80vh; width: 60px; height: 60px; animation-delay: 9s;}
+.bg-visuals .speech2 { left: 5vw; top: 8vh; width: 36px; height: 36px; animation-delay: 11s;}
+@keyframes floatBubble {
+  0% { transform: translateY(0) scale(1);}
+  100% { transform: translateY(-60px) scale(1.1);}
+}
+
+/* Squid Game theme: 24 animated pink shapes (circle, triangle, square) at left and right */
+body.squid .bg-visuals::before { display: none; }
+body.squid .bg-visuals .squid-shape {
+  position: absolute;
+  opacity: 0.85;
+  animation: squidShapeMove 14s linear infinite;
+  z-index: 2;
+}
+@keyframes squidShapeMove {
+  0% { transform: translateY(0) scale(1);}
+  50% { transform: translateY(-70px) scale(1.08);}
+  100% { transform: translateY(0) scale(1);}
+}
+body.squid .bg-visuals .circle { width: 48px; height: 48px; }
+body.squid .bg-visuals .triangle { width: 60px; height: 60px; }
+body.squid .bg-visuals .square { width: 48px; height: 48px; }
+body.squid .bg-visuals .shape1  { top: 5vh;  left: 2vw;  }
+body.squid .bg-visuals .shape2  { top: 15vh; right: 2vw; }
+body.squid .bg-visuals .shape3  { top: 25vh; left: 3vw;  }
+body.squid .bg-visuals .shape4  { top: 35vh; right: 3vw; }
+body.squid .bg-visuals .shape5  { top: 45vh; left: 4vw;  }
+body.squid .bg-visuals .shape6  { top: 55vh; right: 4vw; }
+body.squid .bg-visuals .shape7  { top: 65vh; left: 5vw;  }
+body.squid .bg-visuals .shape8  { top: 75vh; right: 5vw; }
+body.squid .bg-visuals .shape9  { top: 85vh; left: 6vw;  }
+body.squid .bg-visuals .shape10 { top: 10vh; right: 6vw; }
+body.squid .bg-visuals .shape11 { top: 20vh; left: 7vw;  }
+body.squid .bg-visuals .shape12 { top: 30vh; right: 7vw; }
+body.squid .bg-visuals .shape13 { top: 40vh; left: 8vw;  }
+body.squid .bg-visuals .shape14 { top: 50vh; right: 8vw; }
+body.squid .bg-visuals .shape15 { top: 60vh; left: 9vw;  }
+body.squid .bg-visuals .shape16 { top: 70vh; right: 9vw; }
+body.squid .bg-visuals .shape17 { top: 80vh; left: 10vw; }
+body.squid .bg-visuals .shape18 { top: 90vh; right: 10vw;}
+body.squid .bg-visuals .shape19 { top: 20vh; left: 12vw; }
+body.squid .bg-visuals .shape20 { top: 60vh; right: 12vw;}
+body.squid .bg-visuals .shape21 { top: 30vh; left: 14vw; }
+body.squid .bg-visuals .shape22 { top: 70vh; right: 14vw;}
+body.squid .bg-visuals .shape23 { top: 80vh; left: 16vw; }
+body.squid .bg-visuals .shape24 { top: 40vh; right: 16vw; }
+
+@media (max-width: 900px) {
+  .main { flex-direction: column; gap: 1rem; }
+  .header { flex-direction: column; gap: 0.7rem; width: 96vw; min-width: unset; }
+  .logo-text { font-size: 1.3rem; }
+  .site-logo { height: 44px; width: 44px; }
+  .splash-logo { width: 64px; height: 64px; }
+}
